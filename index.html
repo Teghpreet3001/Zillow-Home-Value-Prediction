@@ -1,0 +1,170 @@
+<html>
+<head>
+    <title>Team 101 Project Proposal</title>
+</head>
+<body style="padding: 80px;">
+    <h3 id="introductionbackgroundzillowhomevalueprediction"><b>Introduction/Background: Zillow Home Value Prediction</b></h3>
+
+
+    <p><b>Datasets</b>: <a href="#heading=h.hfrmfc5kb74w">[7]</a></p>
+    <ul><li><b>Zillow Home Value Index (ZHVI):</b><b> </b>A measure of the typical home value and market changes across a given region and housing type.</li>
+    <li><b>Zillow Home Value Forecast (ZHVF): </b>A month-ahead, quarter-ahead and year-ahead forecast of the Zillow Home Value Index (ZHVI).</li></ul>
+    <h4 id="literaturereview"><b>Literature Review</b>:</h4>
+    
+    <h4 id="paper1theresearchpaper3predictingzillowestimationerrorusinglinearregressionandgradientboostingexploreslinearregressionandgradientboostingmodelstoimprovetheaccuracyofthecurrenthomevalueestimatoronzillowbothunderperformwhendealingwithoutliersandduetoskeweddatanormalizationtechniquesoftenworsenaccuracyweaimtoovercometheselimitationsbyincorporatingrandomforestregressorandsvmsthroughcrossmodelcomparisonwehopetobuildamoregeneralizablemodel"><a href="https://ieeexplore.ieee.org/document/8108793">Paper 1</a> The research paper <a href="#heading=h.xr02tlq0j0kf">[3]</a> "Predicting Zillow Estimation Error Using Linear Regression and Gradient Boosting" explores linear regression and gradient boosting models to improve the accuracy of the current home value estimator on Zillow. Both underperform when dealing with outliers, and due to skewed data, normalization techniques often worsen accuracy. We aim to overcome these limitations by incorporating Random Forest Regressor and SVMs. Through cross-model comparison, we hope to build a more generalizable model.</h4>
+    
+    
+    <p><a href="https://ieeexplore.ieee.org/document/7603227">Paper 2</a> This research paper “House price prediction using neural networks" <a href="#heading=h.xe1ff2rqsgct">[6]</a> compares the predictive performance of the ANNs - multilayer perceptron, and the autoregressive integrated moving average model (ARIMA). ANNs fail to optimize performance on small datasets used in the paper. We plan to use SVMs, as they handle small datasets better than neural networks, also making them less prone to overfitting.</p>
+    
+    <p><b>Problem Definition: Zillow Home Value Prediction</b></p>
+    <h4 id="problem"><b>Problem</b></h4>
+    
+    
+    <p>Knowing the potential that a house can offer is a huge asset for all stakeholders involved, and it calls for the price of homes in a specific region, market trends, and various other economic indicators.</p>
+    <h4 id="motivation"><b>Motivation</b></h4>
+    
+    <p><span style="text-decoration: underline;">The Volatility of the Real Estate Market and Its Impacts</span></p>
+    <p>The instability <a href="#heading=h.wfmjnta3dqu8">[4]</a> of the real estate market is due to many factors such as interest rates, demographic trends, economic trends, etc. There is recent data showing significant shifts in market activity, which have critical implications.</p>
+    <p><span style="text-decoration: underline;">Overvaluation</span></p>
+    <p>The 25% overvaluation statistic relative to its long-term fundamental value in Q2 2022 adds a layer of risk of significant wealth loss for homeowners and investors. This can also impact the Affordability Crisis <a href="#heading=h.4bjc1dz5sx0s">[5]</a> which is a challenge for first time buyers entering the market.</p>
+    <p><span style="text-decoration: underline;">The Role of Machine Learning in Addressing Market Challenges</span></p>
+    <p>Applying machine learning <a href="#heading=h.xuvouagdb1gv">[1]</a> <a href="#heading=h.zeueomwxxmxp">[2]</a> to predict home values can offer essential insights for both industry professionals and government agencies.</p>
+    <h3 id="methods"><b>Methods</b></h3>
+    
+    <h4 id="datapreprocessingmethods"><b>Data Preprocessing Methods</b></h4>
+    
+    <ol><li><b>Data Cleaning</b> - Missing values in the growth columns of the Zillow dataset, which represent recent market trends, were handled by median imputation. Median imputation was chosen for its robustness to outliers and its ability to maintain the dataset's central tendency without being skewed by extreme values.</li>
+    <li><b>Standardization</b> - To ensure consistent scaling across features, the growth columns were standardized to have a mean of 0 and a standard deviation of 1. Standardization makes it easier to compare market trends without disproportionate influence from features with larger scales, ultimately improving model performance.</li>
+    <li><b>Regional Bias Adjustment</b> - Recognizing that regional differences affect housing trends, we grouped data by RegionType to calculate mean and standard deviation for each region's growth columns. This regional adjustment highlights variability across different areas, helping identify and account for regional biases that could otherwise skew predictions.</li></ol>
+    <h4 id="machinelearningalgorithmsmodelstobeimplemented"><b>Machine Learning Algorithms/Models to be implemented</b></h4>
+    
+    <ol><li><b>Linear Regression </b>- Modeling the relationship between home values and their features. Implemented through scikit-learn's <code>LinearRegression</code> class</li>
+    <li><b>Random Forest Regressor </b>- Improving the predictive accuracy by averaging multiple decision trees, reducing variance. Implemented using scikit-learn's <code>RandomForestRegressor</code>class</li>
+    <li><b>Gradient Boosting Regressor </b>- Effective in capturing complex relationshipsAvailable in scikit-learn as <code>GradientBoostingRegressor</code>.</li>
+    <li><b>Support Vector Machine (SVM) </b>- Effective in high-dimensional spaces, accommodating many features. Use scikit-learn's <code>svm.SVR</code> for regression tasks.</li></ol>
+    <h4 id="currentimplementationoverview"><b>Midpoint Implementation Overview</b></h4>
+    
+    <p>For the midpoint assessment, we began by leveraging a <b>Linear Regression Model</b> to capture potential relationships between home values and their features, focusing on supervised learning techniques to predict home value growth rates. Given the nature of the Zillow dataset as time-series data, it was reasonable to hypothesize that it may exhibit a linear trend over time across features. Based on this assumption, we chose linear regression as an initial approach to model the trend.</p>
+    
+    <p>Here, the features consist of growth rates from two previous time points (X), while the target is the growth rate at a third time point (y). This setup provides a framework for analyzing sequential trends, offering valuable insights into the housing market's temporal dynamics.</p>
+    
+    
+    <p><b>Model Setup and Evaluation</b></p>
+    <p>The dataset was divided into training and testing sets with an 80/20 split, allowing the model to train on a subset of the data and then evaluate its accuracy on previously unseen data. Using scikit-learn's LinearRegression model, we trained the model on the training set and generated predictions for the test set. Model performance was assessed using <b>Mean Absolute Error (MAE)</b>, <b>Mean Squared Error (MSE)</b>, and <b>Root Mean Squared Error (RMSE)</b>. RMSE, in particular, is a highly interpretable metric as it reflects error in the same units as the target variable, offering insight into how closely predictions match actual values.</p>
+    
+    <p>However, the relatively high error values from these metrics suggest that this dataset may exhibit a nonlinear relationship. This indicates a need for more complex modeling techniques that can capture nonlinear trends, potentially involving higher-dimensional features like regional and economic factors.</p>
+    
+    <h4 id="cs7641andcs4641methodsidentified"><b>CS 7641 and CS 4641 Methods Identified</b></h4>
+    
+    <ul><li><b>Supervised Learning</b>: The focus here is on supervised learning methods, as we have labeled data (historical home values).</li>
+    <ul><li>Algorithms: Linear Regression, Random Forest Regressor, Gradient Boosting Regressor, Support Vector Machine (SVMs)</li></ul>
+    <h3 id="resultsanddiscussion"><b>Results and Discussion</b></h3>
+    
+    <h4 id="quantitativemetrics"><b>Quantitative Metrics</b></h4>
+    
+    <ol><li><b>Mean Absolute Error (MAE)</b>:</li></ol>
+    <figure><img src="images/K2q_Image_1.png" alt="Enter image alt description"></figure>
+    <li><b>Root Mean Squared Error (RMSE)</b>:</li></ol>
+    <figure><img src="images/nfa_Image_2.png" alt="Enter image alt description"></figure>
+    <li><b>R-squared (Coefficient of Determination)</b>:</li></ol>
+    <figure><img src="images/pJZ_Image_3.png" alt="Enter image alt description"></figure>
+    <p>These metrics provide insight into the model's accuracy and its performance in capturing home value growth rates. The MAE reflects the average absolute difference between predicted and actual values, giving a straightforward indication of prediction error. The MSE, which squares the error differences, further penalizes larger errors, highlighting any significant mispredictions in the model. Finally, RMSE presents an interpretable measure of error in the same units as the target variable, making it a practical indicator for evaluating prediction accuracy in the context of home value growth rates.</p>
+    <p>The evaluation metrics for the <b>Linear Regression model</b> are as follows:</p>
+    <ul><li>Mean Absolute Error (MAE): 0.3899</li>
+    <li>Mean Squared Error (MSE): 0.2590</li>
+    <li>Root Mean Squared Error (RMSE): 0.5090</li></ul>
+    <p>These metrics indicate that while the model performs reasonably well in capturing general trends, the relatively high RMSE suggests a moderate level of prediction variance. This implies that the dataset may contain nonlinear relationships or complex patterns that the linear model struggles to capture accurately, particularly across different regions and economic factors. To address this, exploring more sophisticated algorithms, such as ensemble or nonlinear regression models, may be necessary to better represent the dynamics of the housing market.</p>
+
+    <h4 id="visualizations"><b>Visualizations and Model Analysis (3 Implemented for the Final Report)</b></h4>
+    
+    <li><b>Model 1: Linear Regression</b></li>
+    <figure><img src="images/e0f_Image_4.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+    <p>The following plot illustrates the correlation between actual values and the predictions generated by the model. The closer the points are to the green line, the more accurate the predictions are. However, the dispersion of points around this line indicates that the model struggles to capture precise values, especially at the extremes of the target range. This suggests that the linear model may not fully capture the complexity of the underlying data, as there seems to be substantial error for both high and low predictions, implying potential nonlinear relationships that are not accounted for by a simple linear approach.</p>
+
+    <figure><img src="images/Vxa_Image_5.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+    <p>In this plot, we see the distribution of individual prediction errors. Ideally, we would expect errors to be randomly distributed around zero, but here, the pattern of clustering around certain values suggests systematic biases in the model’s predictions. The green line at zero helps to indicate that while many predictions are close to accurate (falling near the line), a significant number of errors deviate in both positive and negative directions. This variance in error values further supports the need to consider alternative models that might handle complex patterns more effectively.</p>
+
+    <figure><img src="images/Yja_Image_6.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+    <p>The third visualization, which displays the distribution of individual errors, reveals a roughly symmetric pattern around zero. This shape indicates that, while the model makes a fair number of predictions close to the actual values, the spread of errors is substantial, with a long tail on both sides of the distribution. This gives us further proof that the linear model does not perfectly fit the dataset, and the distribution of errors suggests that we would need additional feature engineering or more sophisticated machine learning models, such as Random Forest Regressor, Gradient Boosting Regressor, Support Vector Machine (SVMs), which  could reduce this spread of error and help in improving the predictive accuracy of our model.</p>
+
+    <li><b>Model 2: Random Forest Regressor</b></li></ol>
+
+    <figure><img src="images/TEv_Image_7.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+    <figure><img src="images/xc1_Image_8.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+    <figure><img src="images/56S_Image_9.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+
+    <p>Here, we can observe that with the Random Forest Regressor, while the actual vs predicted values are clustered similar to Linear Regression, the Residual Distribution is more symmetric around 0, indicating a higher frequency of residuals (individual errors) that are closer to 0. This indicates a more optimal performance. The feature importance plot showcases how each of the 2 features impact the prediction made. Feature 1, the time series feature “2024-11-30” contributes significantly more to the regressor’s predictions than Feature 2: “2024-09-30”.</p>
+
+    <li><b>Model 3: Support Vector Regressor</b></li></ol>
+    <figure><img src="images/QjG_Image_10.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+    <figure><img src="images/kmo_Image_11.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+
+    <li><b>Model 4: Gradient Boosting Regressor</b></li></ol>
+
+    <figure><img src="images/Aqm_Image_12.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+    <figure><img src="images/8mS_Image_13.png" alt="Enter image alt description" style="width: 500px; height: 300px;"></figure>
+    <p>Observing the Residuals Distribution for Models 3 and 4, we can observe that the residuals get further clustered around 0 through incremental error correction with the decision tree classifiers. The Gradient Boosting Regressor Model, with similar performance metrics to Linear Regression has the best clustered distribution around 0, showcasing better performance.</p>
+    
+    <p><b>Comparisons</b></p>
+    <p>Although the Gradient Boosting Regressor and Linear Regression show comparable error metrics such as Mean Absolute Error (MAE) and Mean Squared Error (MSE), the residual distributions highlight why Gradient Boosting Regressor is a better choice.</p>
+
+    <li><b>Linear Regression:</b>
+    <ol><li>MAE: 0.38996</li>
+    <li>MSE: 0.25904</li>
+    <li>RMSE: 0.50896</li></ol>
+
+    <li><b>SVM:</b></li>
+    <ol><li>MAE: 0.38796</li>
+    <li>MSE: 0.26246</li>
+    <li>RMSE: 0.51231</li></ol>
+
+    <li><b>Random Forest Regressor:</b></li>
+    <ol><li>MAE: 0.39967</li>
+    <li>MSE: 0.27492</li>
+    <li>RMSE: 0.52433</li></ol>
+
+    <li><b>Gradient Boosting Regressor:</b></li>
+    <ol><li>MAE: 0.39573</li>
+    <li>MSE: 0.27834</li>
+    <li>RMSE: 0.52757</li></ol>
+
+    <b>Residual Distribution of Linear Regression:</b>
+    <ol><li>It shows a broader spread, with more extreme residuals on both ends of the scale.</li>
+    <li>This indicates that Linear Regression struggles to capture certain patterns in the data, leading to larger errors for some predictions.</li>
+    <li>There is slight asymmetry in the distribution, suggesting the model might not be completely unbiased in its predictions.</li></ol>
+
+    <b>Residual Distribution of Gradient Boosting Regressor:</b>
+    <ol><li>It is more concentrated around zero, with fewer extreme values.</li>
+    <li>This indicates that Gradient Boosting Regressor is better at minimizing prediction errors, especially for outliers or complex patterns in the data.</li>
+    <li>The distribution is more symmetric, suggesting that the model captures the underlying data trends more effectively and without significant bias.</li></ol>
+
+    <p>When comparing the four models- Linear Regression, SVM, Random Forest Regressor, and Gradient Boosting Regressor—based on their MAE and MSE, the differences in values are relatively small, indicating a negligible difference in overall performance. Linear Regression achieves the lowest MSE (0.25904) and a competitive MAE (0.38996), making it slightly better at minimizing both average errors and large deviations. SVM has the lowest MAE (0.38796), with an MSE of 0.26246, which is only marginally higher than that of Linear Regression, showing its ability to produce similarly accurate predictions. Gradient Boosting Regressor follows closely with an MAE of 0.39573 and an MSE of 0.27834, demonstrating comparable performance and strong adaptability to complex patterns. Random Forest Regressor, while slightly higher in both MAE (0.39967) and MSE (0.27492), still remains close enough to the others to indicate no drastic drop in performance. Overall, the differences in MAE and MSE across these models are minimal, with each performing well enough to be viable, though Linear Regression and Gradient Boosting Regressor have slight edges depending on the complexity of the dataset's relationships.</p>
+
+    <p>The other models, SVM and Random Forest Regressor, fail to perform as well as Gradient Boosting Regressor and Linear Regression. While SVM achieves a slightly lower MAE than Gradient Boosting and Linear Regression, its higher MSE and RMSE imply it struggles with larger errors, making it far less reliable across multiple scenarios. The Random Forest Regressor, on the other hand, has the highest MAE, MSE, and RMSE among all models, indicating poorer performance in capturing the dataset's patterns. These results showcase that Gradient Boosting Regressor and Linear Regression are better suited for this specific dataset, with Gradient Boosting having the upper hand due to its tighter residual distribution.</p>
+    <p></p>
+
+    <p><b>Next Steps</b></p>
+    <p>To improve predictive performance,we will look into further feature engineering to incorporate higher-dimensional features, such as economic factors and regional differences, which may have a substantial impact on home value trends. These adjustments will aim to capture more of the variance in the dataset and reduce the observed error, ultimately leading to a model that better reflects the complexity of housing market dynamics. These improvements will help us reach the project goals outlined below and achieve the expected results using advanced machine learning methods. With these higher dimensional features, better nonlinear techniques like Neural Networks (potentially Recurrent Neural Networks or Long Short Term Memory Networks) should fit the training data better</p>
+    
+    <h4 id="projectgoals"><b>Project Goals</b></h4>
+    
+    <li><b>Accuracy</b>: Get MAE and RMSE below a set threshold (e.g., MAE < 0.4 (scaled by the size of the dataset: 894 entries)) and compare different methods of supervised learning based on accuracy.</li>
+    <li><b>Sustainability</b>: Using efficient algorithms for reducing computational costs (especially crucial when it comes to md-sized and larger datasets).</li>
+    <li><b>Ethical Considerations</b>: Ensuring the model doesn't incorporate biased features, leading to unfair treatment for specific demographic groups.</li></ul>
+
+    <h4 id="notebook"><b>Notebook PDF</b></h4>
+    <iframe src="DataPreprocessing.pdf" width="50%" height="500px"></iframe>
+
+    <p>Finally, the <a href="https://docs.google.com/spreadsheets/d/14_kN4Ka7e-86cwZYr8aK5mKUkbA7OZkjyNSqb7tK07c/edit?usp=sharing">Contributions Table</a> and <a href="https://docs.google.com/spreadsheets/d/1wgNznbmYB6rPghcRZnfjlUOF-AnGWCGVsr8KEqAx5sY/edit?usp=sharing">Gantt Chart</a> remain the same as previously shared, with each individual member responsible for their respective action items.</p>
+    <h3 id="references"><b>References</b></h3>
+    
+    <ol><li>Q. Truong, M. Nguyen, H. Dang, and B. Mei, “Housing Price Prediction via Improved Machine Learning Techniques," Procedia Computer Science, vol. 174, pp. 433-442, 2020, doi: <a href="https://doi.org/10.1016/j.procs.2020.06.111">https://doi.org/10.1016/j.procs.2020.06.111</a>.</li>
+    <li>A. P. Singh, K. Rastogi, and S. Rajpoot, “House Price Prediction Using Machine Learning," IEEE Xplore, Dec. 01, 2021. <a href="https://ieeexplore.ieee.org/document/9725552">https://ieeexplore.ieee.org/document/9725552</a></li>
+    <li>D. Sangani, K. Erickson, and M. A. Hasan, “Predicting Zillow Estimation Error Using Linear Regression and Gradient Boosting," IEEE Xplore, Oct. 01, 2017. <a href="https://ieeexplore.ieee.org/abstract/document/8108793">https://ieeexplore.ieee.org/abstract/document/8108793</a></li>
+    <li>V. Calanog, K. Fagan, and T. Metcalfe, “Volatility in 2022, Uncertainty in 2023," CRE Real Estate Issues, vol. 47, no. 2, pp. 1-15, Feb. 2023, Accessed: Oct. 03, 2024. [Online]. Available: <a href="https://cre.org/real-estate-issues/volatility-in-2022-uncertainty-in-2023/">https://cre.org/real-estate-issues/volatility-in-2022-uncertainty-in-2023/</a></li>
+    <li>K. Reuben, S. Lei, “What the Housing Crisis Means for State and Local Governments - Lincoln Institute of Land Policy," Lincoln Institute of Land Policy, Jan. 13, 2017. <a href="https://www.lincolninst.edu/publications/articles/what-housing-crisis-means-state-local-governments/">https://www.lincolninst.edu/publications/articles/what-housing-crisis-means-state-local-governments/</a></li>
+    <li>W. T. Lim, L. Wang, Y. Wang, and Q. Chang, “Housing price prediction using neural networks," 2016 12th International Conference on Natural Computation, Fuzzy Systems and Knowledge Discovery (ICNC-FSKD), Aug. 2016, doi: <a href="https://doi.org/10.1109/fskd.2016.7603227">https://doi.org/10.1109/fskd.2016.7603227</a>.</li>
+    <li>Zillow, “Housing Data - Zillow Research," <i>Zillow Research</i>, 2011. <a href="https://www.zillow.com/research/data/">https://www.zillow.com/research/data/</a></li></ol>
+    
+</body>
+</html>
